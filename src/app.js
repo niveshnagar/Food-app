@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -9,14 +9,22 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import RestaurantMenuPage from "./components/restaurant_menu/RestaurantMenuPage";
 import { Provider } from "react-redux";
 import myStore from "./utils/myStore";
+import RestaurantListContext from "./utils/RestaurantListContext";
+import { resList_URL } from "./utils/constants";
 
 // api- https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7040592&lng=77.10249019999999&page_type=DESKTOP_WEB_LISTING
 
 const AppLayout = () => {
+  const [resListURL, setResListURL] = useState(resList_URL);
   return (
     <Provider store={myStore} className="AppContainer">
       <Header />
-      <Outlet />
+      <RestaurantListContext.Provider
+        value={{ API: resListURL, setResListURL }}
+      >
+        <Outlet />
+      </RestaurantListContext.Provider>
+      ,
     </Provider>
   );
 };
@@ -40,7 +48,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/cart",
-        element:<Cart/> ,
+        element: <Cart />,
       },
       {
         path: "/restaurants/:resId",

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { API_URL, PLACE_ID_URL } from "../utils/constants";
+import RestaurantListContext from "../utils/RestaurantListContext";
 
-const LocationSearch = ({ sendDataToParent }) => {
+const LocationSearch = () => {
   const [searchString, setSearchString] = useState("");
   const [dropdownData, setDropdownData] = useState([]);
   const [isDropdownActive, setIsdropdownActive] = useState(false);
+  const { setResListURL } = useContext(RestaurantListContext);
 
   const handleInputChange = (event) => {
     setSearchString(event.target.value);
@@ -16,15 +18,15 @@ const LocationSearch = ({ sendDataToParent }) => {
         setIsdropdownActive(true);
       }
       if (searchString === "") {
-        setDropdownData([]);
+        setIsdropdownActive(false);
       } else {
-        const stringData = await fetch(
+        const streamData = await fetch(
           `https://www.swiggy.com/dapi/misc/place-autocomplete?input=${searchString.replace(
             " ",
             "%20"
           )}`
         );
-        const jsonData = await stringData.json();
+        const jsonData = await streamData.json();
         const autoCompleteList = jsonData?.data || [];
         /* here autoCompleteList will be an array of 5 places*/
         setDropdownData(autoCompleteList);
@@ -37,7 +39,8 @@ const LocationSearch = ({ sendDataToParent }) => {
     const json = await string.json();
     const { lat, lng } = json?.data[0]?.geometry?.location;
     const strAPI = API_URL + `lat=${lat}&lng=${lng}`;
-    sendDataToParent(strAPI);
+    // update API to strAPI somehow;
+    setResListURL(strAPI);
   };
 
   return (

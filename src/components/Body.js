@@ -2,7 +2,8 @@ import Shimmer from "./Shimmer";
 import fetchRestaurantData from "../utils/fetchRestaurantData";
 import LocationSearch from "./LocationSearch";
 import { RestaurantCard } from "./RestaurantCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import RestaurantListContext from "../utils/RestaurantListContext";
 import { Link } from "react-router-dom";
 import {
   timeSorterFn,
@@ -17,12 +18,11 @@ const Body = () => {
   const [currentlySelected, setCurrentlySelected] = useState("relevance");
   const [searchString, setSearchString] = useState("");
   const [showNoResults, setShowNoResults] = useState(false);
-  const [Body_API, setBody_API] = useState(
-    "https://www.swiggy.com/dapi/restaurants/list/v5?page_type=DESKTOP_WEB_LISTING&lat=22.7195687&lng=75.8577258"
-  );
+  const { API } = useContext(RestaurantListContext);
+
   useEffect(() => {
-    fetchData(Body_API);
-  }, [Body_API]);
+    fetchData(API);
+  }, [API]);
 
   const fetchData = async (apidata) => {
     const parsedData = await fetchRestaurantData(apidata);
@@ -67,15 +67,10 @@ const Body = () => {
     setCurrentlySelected(sortType);
   };
 
-  const handleDataFromChild = (api) => {
-    setBody_API(api);
-    console.log({ api });
-  };
-
   return (
     <main className="body">
       <section className="utility-box">
-        <LocationSearch sendDataToParent={handleDataFromChild} />
+        <LocationSearch />
         <div className="filter-container">
           <div className="search-box">
             <input
