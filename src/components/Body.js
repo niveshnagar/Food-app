@@ -34,7 +34,6 @@ const Body = () => {
 
   const handleSearch = (event) => {
     if (event.keyCode === 13) {
-      console.log("enter was pressed");
       if (searchString === "") {
         setRestaurantList(originalList);
         setShowNoResults(false);
