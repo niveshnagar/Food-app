@@ -26,8 +26,11 @@ const Body = () => {
 
   const fetchData = async (apidata) => {
     const parsedData = await fetchRestaurantData(apidata);
-    const num = parsedData?.data?.cards.length - 1;
-    const resList = parsedData?.data?.cards[num]?.data?.data?.cards;
+    console.log(parsedData);
+    // const num = parsedData?.data?.cards.length - 1;
+    const resList =
+      parsedData?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+    console.log(resList);
     setOriginalList(resList);
     setRestaurantList(resList);
   };
@@ -39,7 +42,7 @@ const Body = () => {
         setShowNoResults(false);
       } else {
         const searchedList = originalList.slice().filter((restaurant) => {
-          const flag = restaurant?.data?.cuisines.some(
+          const flag = restaurant?.info?.cuisines.some(
             (element) => element.toLowerCase() === searchString.toLowerCase()
           );
           return flag;
@@ -125,14 +128,14 @@ const Body = () => {
       <section className="restaurant-container">
         {showNoResults ? (
           <div>No results found</div>
-        ) : restaurantList.length === 0 ? (
+        ) : restaurantList?.length === 0 ? (
           <Shimmer />
         ) : (
-          restaurantList.map((restaurant, index) => (
+          restaurantList?.map((restaurant, index) => (
             <Link
               className="link"
-              key={restaurant.data.id + index}
-              to={"/restaurants/" + restaurant.data.id}
+              key={restaurant?.info?.id + index}
+              to={"/restaurants/" + restaurant?.info?.id}
             >
               <RestaurantCard resData={restaurant} />
             </Link>
