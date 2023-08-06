@@ -41,7 +41,7 @@ const Body = () => {
         setRestaurantList(originalList);
         setShowNoResults(false);
       } else {
-        const searchedList = originalList.slice().filter((restaurant) => {
+        const searchedList = originalList?.slice().filter((restaurant) => {
           const flag = restaurant?.info?.cuisines.some(
             (element) => element.toLowerCase() === searchString.toLowerCase()
           );
