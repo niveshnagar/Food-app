@@ -29,7 +29,7 @@ const Body = () => {
     console.log(parsedData);
     // const num = parsedData?.data?.cards.length - 1;
     const resList =
-      parsedData?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+      parsedData?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
     console.log(resList);
     setOriginalList(resList);
     setRestaurantList(resList);

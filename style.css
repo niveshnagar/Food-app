@@ -528,6 +528,11 @@
   font-weight: 500;
   font-size: 14px;
 }
+
+.dish-image-container button:active{
+  background-color: palegoldenrod;
+}
+
 /* fixing last btm margins of each category */
 .main-category .dish-container:nth-last-child(2) {
   border: none;
