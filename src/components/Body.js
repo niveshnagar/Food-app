@@ -21,16 +21,16 @@ const Body = () => {
   const { API } = useContext(RestaurantListContext);
 
   useEffect(() => {
-    fetchData(API);
+    fetchData();
   }, [API]);
 
-  const fetchData = async (apidata) => {
-    const parsedData = await fetchRestaurantData(apidata);
-    console.log(parsedData);
+  const fetchData = async () => {
+    const parsedData = await fetchRestaurantData(API);
+    // console.log(parsedData);
     // const num = parsedData?.data?.cards.length - 1;
     const resList =
       parsedData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-    console.log(resList);
+    // console.log(parsedData);
     setOriginalList(resList);
     setRestaurantList(resList);
   };
@@ -77,6 +77,7 @@ const Body = () => {
           <div className="search-box">
             <input
               id="searchBar"
+              data-testid="searchInput"
               className="search-bar"
               placeholder="Search for cuisines..."
               value={searchString}
@@ -103,6 +104,7 @@ const Body = () => {
             Delivery Time
           </button>
           <button
+          data-testid ="sortByRating"
             className="nowrap"
             id={currentlySelected === "rating" ? "button-active" : ""}
             onClick={() => handleSort(ratingSorterFn, "rating")}

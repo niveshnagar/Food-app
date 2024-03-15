@@ -26,7 +26,7 @@ const Header = () => {
         <Link className="link" to="/cart">
           <li className="nav-items">
             <img src={CART_URL} />
-            <span>{cartItems.length}-items</span>
+            <span data-testid= "cartInfo">{cartItems.length}-items</span>
           </li>
         </Link>
       </ul>

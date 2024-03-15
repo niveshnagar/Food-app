@@ -2,8 +2,8 @@ import { useState } from "react";
 import { TEMP_IMG_URL, DISH_IMG_URL } from "../../utils/constants";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../utils/cartSlice";
-import vegLogo from "../../../assets/vegLogo.png";
-import nonvegLogo from "../../../assets/nonvegLogo.png";
+// import vegLogo from "../../../assets/vegLogo.png";
+// import nonvegLogo from "../../../assets/nonvegLogo.png";
 
 const MainCategoryItem = (prop) => {
   const { dish } = prop;
@@ -21,10 +21,10 @@ const MainCategoryItem = (prop) => {
   return (
     <div className="dish-container">
       <div className="dish-textual-info">
-        <img
+        {/* <img
           className="dish-veg-logo"
           src={itemAttribute?.vegClassifier === "VEG" ? vegLogo : nonvegLogo}
-        />
+        /> */}
 
         <p className="dish-name">{name}</p>
         <p className="dish-price">₹{price / 100 || defaultPrice / 100}</p>
